@@ -1,4 +1,4 @@
-package com.example.user.WaxPhoneMartyrisator;
+package org.apps.wax.WaxPhoneMartyrisator;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,22 +9,17 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
-import com.example.user.phonematique.R;
-
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 

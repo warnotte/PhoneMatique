@@ -1,4 +1,4 @@
-package com.example.user.phonematique;
+package org.apps.wax.phonematique;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
