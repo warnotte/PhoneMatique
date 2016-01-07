@@ -1,6 +1,13 @@
 package org.apps.wax.WaxPhoneMartyrisator;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -29,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     Button button_send;
     Button button_cancel;
 
-    String number = "0479708049";
+    String number = "";
     String message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus";
     boolean dummyMessageOrUserMessage = true;
     int amount = 5;
@@ -73,6 +80,24 @@ public class MainActivity extends AppCompatActivity {
         //button_quit.setText("Quit");
         button_send.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
+                // Check si c'est pas mon numero :)
+                if (number.endsWith("479708049"))
+                {
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("Interdiction")
+                            .setMessage("T'esperes martyriser le martyriseur ??? :)")
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Log.d("J'envoie pas", "J'envoie pas");
+
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                    return;
+                }
+
                 parameterPanel.setVisibility(View.GONE);
                 doAction();
             }
@@ -82,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         //button_quit.setText("Quit");
         button_cancel.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (thread_work!=null) {
+                if (thread_work != null) {
                     thread_work.interrupt();
                     parameterPanel.setVisibility(View.VISIBLE);
                 }
@@ -109,6 +134,48 @@ public class MainActivity extends AppCompatActivity {
         parameterPanel = findViewById(R.id.parameterpanel);
 
 
+
+
+        Button button_callContactSearch = (        Button) findViewById(R.id.button_callContactSearch);
+        button_callContactSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+                startActivityForResult(intent, PICK_CONTACT);
+            }
+        });
+
+
+    }
+
+    final int PICK_CONTACT = 40;
+
+    @Override
+    public void onActivityResult(int reqCode, int resultCode, Intent data) {
+        super.onActivityResult(reqCode, resultCode, data);
+
+        switch (reqCode) {
+            case (PICK_CONTACT) :
+                if (resultCode == Activity.RESULT_OK) {
+                    Uri contactData = data.getData();
+                    String[] proj = { ContactsContract.CommonDataKinds.Phone.NUMBER };
+
+                    //Cursor c =  managedQuery(contactData, null, null, null, null);
+                    Cursor c = getContentResolver().query(contactData, proj, null, null, null);
+
+                    if (c.moveToFirst()) {
+                       // String name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                        String name = c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                        // TODO Fetch other Contact details as you want to use
+                        // Set the name of contact in your editText
+                        Log.d("tag", "contact " + name);
+
+                        edit_text_numero.setText(name);
+                    }
+                }
+                break;
+        }
     }
 
     private void initDateAndUI() {
@@ -183,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 catch(NumberFormatException e)
                 {
-
+                    e.printStackTrace();
                 }
             }
         });
@@ -233,7 +300,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 catch(NumberFormatException e)
                 {
-
+                    e.printStackTrace();
                 }
             }
         });
@@ -258,7 +325,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 catch(NumberFormatException e)
                 {
-
+                    e.printStackTrace();
                 }
             }
         });
@@ -294,6 +361,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void doAction() {
 
+
+
+        Log.d("J'envoie","J'envoie");
         if (thread_work!=null)
             thread_work.interrupt();
 
