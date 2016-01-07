@@ -112,7 +112,8 @@
                     android:id="@+id/editText_Message"
                     android:layout_row="1"
                     android:layout_column="0"
-                    android:hint="Message de test, police !!!"
+                    android:hint="Message de test"
+                    android:maxLength="150"
                     android:height="100dp" />
 
                 <GridLayout
@@ -120,22 +121,12 @@
                     android:layout_height="match_parent"
                     android:columnCount="2">
 
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/editText_Numero"
-                        android:inputType="phone"
-                        android:layout_row="0"
-                        android:layout_column="1"
-                        android:editable="true"
-                        android:hint="Numero de telephone" />
-
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Amount"
                         android:id="@+id/textView4"
-                        android:layout_row="1"
+                        android:layout_row="2"
                         android:layout_column="0"
                         android:textStyle="bold"
                         android:textAlignment="center"
@@ -152,14 +143,40 @@
                         android:textStyle="bold"
                         android:textAlignment="center"
                         android:background="#79988282"
-                        android:layout_gravity="fill_horizontal" />
+                        android:layout_gravity="fill_horizontal"
+                        android:layout_columnSpan="2" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_row="1"
+                        android:layout_column="0"
+                        android:layout_columnSpan="2">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/editText_Numero"
+                            android:inputType="phone"
+                            android:editable="true"
+                            android:hint="Numero de telephone"
+                            android:layout_weight="2" />
+
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Find"
+                            android:id="@+id/button_callContactSearch"
+                            android:layout_weight="1" />
+                    </LinearLayout>
 
                     <EditText
                         android:layout_width="match_parent"
                         android:inputType="numberSigned"
                         android:layout_height="wrap_content"
                         android:id="@+id/editText_Amount"
-                        android:layout_row="1"
+                        android:layout_row="2"
                         android:layout_column="1"
                         android:hint="Nombre de repetitions" />
 
@@ -168,7 +185,7 @@
                         android:layout_height="wrap_content"
                         android:text="Delay Before"
                         android:id="@+id/textView5"
-                        android:layout_row="2"
+                        android:layout_row="3"
                         android:layout_column="0"
                         android:textStyle="bold"
                         android:textAlignment="center"
@@ -180,7 +197,7 @@
                         android:layout_height="wrap_content"
                         android:text="Delay between"
                         android:id="@+id/textView6"
-                        android:layout_row="3"
+                        android:layout_row="4"
                         android:layout_column="0"
                         android:textStyle="bold"
                         android:textAlignment="center"
@@ -192,7 +209,7 @@
                         android:inputType="numberSigned"
                         android:layout_height="wrap_content"
                         android:id="@+id/editText_DelayBefroe"
-                        android:layout_row="2"
+                        android:layout_row="3"
                         android:layout_column="1"
                         android:hint="Delay avant operations en ms" />
 
@@ -201,7 +218,7 @@
                         android:inputType="numberSigned"
                         android:layout_height="wrap_content"
                         android:id="@+id/editText_DelayBeetween"
-                        android:layout_row="3"
+                        android:layout_row="4"
                         android:layout_column="1"
                         android:hint="Delay entre operations en ms" />
                 </GridLayout>
